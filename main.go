@@ -19,7 +19,7 @@ func main() {
 			fmt.Println("Error:", err)
 		}
 	case "compare":
-		if err := pkg.Compare("benmark.txt", "benmark_new.txt"); err != nil {
+		if err := pkg.Compare("benchmark.txt", "benchmark_new.txt"); err != nil {
 			fmt.Println("Error:", err)
 		}
 	case "accept":
