@@ -9,14 +9,18 @@ import (
 )
 
 const (
-	red   = "\033[31m" // Red for increased time
-	green = "\033[32m" // Green for decreased time
-	reset = "\033[0m"  // Reset to default color
+	red   = "\033[31m"
+	green = "\033[32m"
+	reset = "\033[0m"
 )
 
 var benchmarkRegex = regexp.MustCompile(`^ok\s+([\S]+)\s+([\d\.]+)s$`)
 
 func Compare(oldFile, newFile string) error {
+	if err := Create("benchmark_new.txt"); err != nil {
+		return err
+	}
+
 	oldBenchmarks, err := parseFile(oldFile)
 	if err != nil {
 		return err
@@ -36,10 +40,10 @@ func Compare(oldFile, newFile string) error {
 			color := reset
 
 			if diff > 0.05 {
-				color = red
+				color = green
 				changeIndicator = fmt.Sprintf("▲ Increased by %.3fs", diff)
 			} else if diff < -0.05 {
-				color = green
+				color = red
 				changeIndicator = fmt.Sprintf("▼ Decreased by %.3fs", -diff)
 			} else {
 				changeIndicator = "No change"

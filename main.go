@@ -15,7 +15,7 @@ func main() {
 
 	switch os.Args[1] {
 	case "create":
-		if err := pkg.Create(); err != nil {
+		if err := pkg.Create("benchmark.txt"); err != nil {
 			fmt.Println("Error:", err)
 		}
 	case "compare":

@@ -6,12 +6,8 @@ import (
 	"os/exec"
 )
 
-func Create() error {
-	if err := renameFile(); err != nil {
-		return err
-	}
-
-	cmd := exec.Command("sh", "-c", "go test ./... -bench . -benchmem > benchmark_new.txt")
+func Create(fileName string) error {
+	cmd := exec.Command("sh", "-c", fmt.Sprintf("go test ./... -bench . -benchmem > %s", fileName))
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
@@ -23,12 +19,3 @@ func Create() error {
 	return nil
 }
 
-func renameFile() error {
-	if _, err := os.Stat("benchmark_new.txt"); err == nil {
-		if err := Accept(); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
