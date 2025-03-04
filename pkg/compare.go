@@ -40,10 +40,10 @@ func Compare(oldFile, newFile string) error {
 			color := reset
 
 			if diff > 0.05 {
-				color = green
+				color = red
 				changeIndicator = fmt.Sprintf("▲ Increased by %.3fs", diff)
 			} else if diff < -0.05 {
-				color = red
+				color = green
 				changeIndicator = fmt.Sprintf("▼ Decreased by %.3fs", -diff)
 			} else {
 				changeIndicator = "No change"
